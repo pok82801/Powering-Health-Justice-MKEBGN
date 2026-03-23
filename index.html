@@ -76,13 +76,16 @@
             padding: 4rem 0;
         }
         
-        /* Hero */
+        /* Hero with Parallax */
         .hero {
             background: var(--deep-green);
             color: white;
             padding: 6rem 0 5rem;
             position: relative;
             overflow: hidden;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero::before {
@@ -105,6 +108,111 @@
             right: 0;
             height: 6px;
             background: var(--gold);
+        }
+        
+        /* Parallax backgrounds */
+        .parallax-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            right: 0;
+            height: 140%;
+            z-index: 0;
+            will-change: transform;
+        }
+        
+        .parallax-section > .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Decorative parallax elements */
+        .parallax-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .parallax-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            will-change: transform;
+        }
+        
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--gold);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--deep-green);
+            bottom: -50px;
+            left: -80px;
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--warm-red);
+            top: 40%;
+            right: 10%;
+        }
+        
+        /* Divider with parallax */
+        .parallax-divider {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .parallax-divider-bg {
+            position: absolute;
+            top: -50%;
+            left: 0;
+            right: 0;
+            height: 200%;
+            background: var(--deep-green);
+            z-index: 0;
+            will-change: transform;
+        }
+        
+        .parallax-divider-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .parallax-divider-content h2 {
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            margin-bottom: 0.5rem;
+        }
+        
+        .parallax-divider-content p {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin: 0;
         }
         
         .hero .container {
@@ -691,8 +799,22 @@
     </div>
 </section>
 
+<!-- Parallax Divider -->
+<div class="parallax-divider">
+    <div class="parallax-divider-bg"></div>
+    <div class="parallax-divider-content">
+        <h2>The Disparity is Clear</h2>
+        <p>Who you are determines your debt burden</p>
+    </div>
+</div>
+
 <!-- Disparities -->
-<section class="content-section">
+<section class="content-section parallax-section">
+    <div class="parallax-shapes">
+        <div class="parallax-shape shape-1"></div>
+        <div class="parallax-shape shape-2"></div>
+        <div class="parallax-shape shape-3"></div>
+    </div>
     <div class="container">
         <h2>Racial & Regional Disparities</h2>
         <div class="content-block">
@@ -732,6 +854,15 @@
         </div>
     </div>
 </section>
+
+<!-- Parallax Divider 2 -->
+<div class="parallax-divider">
+    <div class="parallax-divider-bg"></div>
+    <div class="parallax-divider-content">
+        <h2>What's Being Done?</h2>
+        <p>The policy landscape in Wisconsin</p>
+    </div>
+</div>
 
 <!-- Policy Landscape -->
 <section class="content-section">
@@ -922,6 +1053,68 @@
         });
         document.getElementById('shareMenu').classList.remove('active');
     }
+    
+    // Parallax scroll effect
+    function initParallax() {
+        const parallaxElements = document.querySelectorAll('.parallax-bg, .parallax-divider-bg');
+        const parallaxShapes = document.querySelectorAll('.parallax-shape');
+        const hero = document.querySelector('.hero');
+        
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            
+            // Hero parallax - subtle zoom effect on scroll
+            if (hero) {
+                const heroHeight = hero.offsetHeight;
+                if (scrolled < heroHeight) {
+                    const scale = 1 + (scrolled * 0.0003);
+                    const opacity = 1 - (scrolled / heroHeight) * 0.3;
+                    hero.style.transform = `scale(${scale})`;
+                    hero.querySelector('.container').style.opacity = opacity;
+                }
+            }
+            
+            // Parallax backgrounds
+            parallaxElements.forEach(el => {
+                const section = el.parentElement;
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                // Only animate when section is in view
+                if (scrolled + window.innerHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
+                    const relativeScroll = scrolled - sectionTop;
+                    const speed = 0.4;
+                    el.style.transform = `translateY(${relativeScroll * speed}px)`;
+                }
+            });
+            
+            // Floating shapes with different speeds
+            parallaxShapes.forEach((shape, index) => {
+                const speeds = [0.15, 0.1, 0.2];
+                const speed = speeds[index % 3];
+                const direction = index % 2 === 0 ? 1 : -1;
+                shape.style.transform = `translateY(${scrolled * speed * direction}px)`;
+            });
+        }
+        
+        // Throttle scroll events for performance
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Initial call
+        updateParallax();
+    }
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initParallax);
 </script>
 
 </body>
