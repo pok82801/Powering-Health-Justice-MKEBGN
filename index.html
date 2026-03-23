@@ -76,16 +76,13 @@
             padding: 4rem 0;
         }
         
-        /* Hero with Parallax */
+        /* Hero */
         .hero {
             background: var(--deep-green);
             color: white;
             padding: 6rem 0 5rem;
             position: relative;
             overflow: hidden;
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
         }
         
         .hero::before {
@@ -108,111 +105,6 @@
             right: 0;
             height: 6px;
             background: var(--gold);
-        }
-        
-        /* Parallax backgrounds */
-        .parallax-section {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .parallax-bg {
-            position: absolute;
-            top: -20%;
-            left: 0;
-            right: 0;
-            height: 140%;
-            z-index: 0;
-            will-change: transform;
-        }
-        
-        .parallax-section > .container {
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Decorative parallax elements */
-        .parallax-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .parallax-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.06;
-            will-change: transform;
-        }
-        
-        .shape-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--gold);
-            top: -100px;
-            right: -100px;
-        }
-        
-        .shape-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--deep-green);
-            bottom: -50px;
-            left: -80px;
-        }
-        
-        .shape-3 {
-            width: 200px;
-            height: 200px;
-            background: var(--warm-red);
-            top: 40%;
-            right: 10%;
-        }
-        
-        /* Divider with parallax */
-        .parallax-divider {
-            height: 280px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .parallax-divider-bg {
-            position: absolute;
-            top: -50%;
-            left: 0;
-            right: 0;
-            height: 200%;
-            background: var(--deep-green);
-            z-index: 0;
-            will-change: transform;
-        }
-        
-        .parallax-divider-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: white;
-            padding: 2rem;
-        }
-        
-        .parallax-divider-content h2 {
-            color: white;
-            font-size: clamp(1.5rem, 4vw, 2.25rem);
-            margin-bottom: 0.5rem;
-        }
-        
-        .parallax-divider-content p {
-            color: var(--gold);
-            font-size: 1.1rem;
-            margin: 0;
         }
         
         .hero .container {
@@ -617,6 +509,28 @@
             margin-bottom: 0;
         }
         
+        /* Disclaimer */
+        .disclaimer {
+            background: var(--dark-text);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        
+        .disclaimer .container {
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin: 0;
+        }
+        
+        .disclaimer strong {
+            color: rgba(255,255,255,0.9);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             section { padding: 3rem 0; }
@@ -699,6 +613,12 @@
                 color: var(--deep-green) !important;
             }
             
+            .disclaimer {
+                background: white !important;
+                color: var(--slate) !important;
+                border-top: 1px solid #ccc;
+            }
+            
             a {
                 text-decoration: none !important;
             }
@@ -773,15 +693,15 @@
         
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">$1.36B</div>
+                <div class="stat-number" data-count="1.36" data-prefix="$" data-suffix="B">$0B</div>
                 <div class="stat-label">Uncompensated care in Wisconsin hospitals (2023)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">12%</div>
+                <div class="stat-number" data-count="12" data-suffix="%">0%</div>
                 <div class="stat-label">Wisconsin residents with medical debt in collections</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">$922</div>
+                <div class="stat-number" data-count="922" data-prefix="$">$0</div>
                 <div class="stat-label">Median debt owed (vs. $774 national median)</div>
             </div>
         </div>
@@ -794,27 +714,13 @@
         </ul>
         
         <div class="callout">
-            Over recent years, charity care has decreased while bad debt has increased, suggesting that more individuals are falling through eligibility gaps and are unable to access financial assistance.
+            "Over recent years, charity care has decreased while bad debt has increased, suggesting that more individuals are falling through eligibility gaps and are unable to access financial assistance."
         </div>
     </div>
 </section>
 
-<!-- Parallax Divider -->
-<div class="parallax-divider">
-    <div class="parallax-divider-bg"></div>
-    <div class="parallax-divider-content">
-        <h2>The Disparity is Clear</h2>
-        <p>Who you are determines your debt burden</p>
-    </div>
-</div>
-
 <!-- Disparities -->
-<section class="content-section parallax-section">
-    <div class="parallax-shapes">
-        <div class="parallax-shape shape-1"></div>
-        <div class="parallax-shape shape-2"></div>
-        <div class="parallax-shape shape-3"></div>
-    </div>
+<section class="content-section">
     <div class="container">
         <h2>Racial & Regional Disparities</h2>
         <div class="content-block">
@@ -824,12 +730,12 @@
         <div class="disparity-box">
             <div class="disparity-stats">
                 <div class="disparity-stat">
-                    <div class="number red">25%</div>
+                    <div class="number red" data-count="25" data-suffix="%">0%</div>
                     <div class="label">of Black residents<br>carry medical debt</div>
                 </div>
                 <div class="disparity-vs">vs.</div>
                 <div class="disparity-stat">
-                    <div class="number green">10%</div>
+                    <div class="number green" data-count="10" data-suffix="%">0%</div>
                     <div class="label">of white residents<br>carry medical debt</div>
                 </div>
             </div>
@@ -854,15 +760,6 @@
         </div>
     </div>
 </section>
-
-<!-- Parallax Divider 2 -->
-<div class="parallax-divider">
-    <div class="parallax-divider-bg"></div>
-    <div class="parallax-divider-content">
-        <h2>What's Being Done?</h2>
-        <p>The policy landscape in Wisconsin</p>
-    </div>
-</div>
 
 <!-- Policy Landscape -->
 <section class="content-section">
@@ -1013,6 +910,13 @@
     </div>
 </footer>
 
+<!-- Disclaimer -->
+<div class="disclaimer">
+    <div class="container">
+        <p>This State Assessment product was created as part of the <strong>Powering Health Justice</strong> project by researchers from <strong>Cornell University</strong> and <strong>Community Change</strong>. PHJ is funded through a grant from the <strong>Robert Wood Johnson Foundation</strong>. The need for State Assessment Products was developed through multiple conversations with community partners working in the target areas.</p>
+    </div>
+</div>
+
 <script>
     // Share menu toggle
     function toggleShareMenu() {
@@ -1054,67 +958,56 @@
         document.getElementById('shareMenu').classList.remove('active');
     }
     
-    // Parallax scroll effect
-    function initParallax() {
-        const parallaxElements = document.querySelectorAll('.parallax-bg, .parallax-divider-bg');
-        const parallaxShapes = document.querySelectorAll('.parallax-shape');
-        const hero = document.querySelector('.hero');
+    // Counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('[data-count]');
         
-        function updateParallax() {
-            const scrolled = window.pageYOffset;
-            
-            // Hero parallax - subtle zoom effect on scroll
-            if (hero) {
-                const heroHeight = hero.offsetHeight;
-                if (scrolled < heroHeight) {
-                    const scale = 1 + (scrolled * 0.0003);
-                    const opacity = 1 - (scrolled / heroHeight) * 0.3;
-                    hero.style.transform = `scale(${scale})`;
-                    hero.querySelector('.container').style.opacity = opacity;
-                }
-            }
-            
-            // Parallax backgrounds
-            parallaxElements.forEach(el => {
-                const section = el.parentElement;
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                // Only animate when section is in view
-                if (scrolled + window.innerHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
-                    const relativeScroll = scrolled - sectionTop;
-                    const speed = 0.4;
-                    el.style.transform = `translateY(${relativeScroll * speed}px)`;
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    
+                    const target = parseFloat(entry.target.dataset.count);
+                    const prefix = entry.target.dataset.prefix || '';
+                    const suffix = entry.target.dataset.suffix || '';
+                    const duration = 2000; // 2 seconds
+                    const steps = 60;
+                    const stepDuration = duration / steps;
+                    
+                    let current = 0;
+                    const increment = target / steps;
+                    const isDecimal = target % 1 !== 0;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        
+                        let displayValue;
+                        if (isDecimal) {
+                            displayValue = current.toFixed(2);
+                        } else {
+                            displayValue = Math.floor(current).toLocaleString();
+                        }
+                        
+                        entry.target.textContent = prefix + displayValue + suffix;
+                    }, stepDuration);
                 }
             });
-            
-            // Floating shapes with different speeds
-            parallaxShapes.forEach((shape, index) => {
-                const speeds = [0.15, 0.1, 0.2];
-                const speed = speeds[index % 3];
-                const direction = index % 2 === 0 ? 1 : -1;
-                shape.style.transform = `translateY(${scrolled * speed * direction}px)`;
-            });
-        }
+        }, observerOptions);
         
-        // Throttle scroll events for performance
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    updateParallax();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-        
-        // Initial call
-        updateParallax();
+        counters.forEach(counter => observer.observe(counter));
     }
     
     // Initialize on load
-    document.addEventListener('DOMContentLoaded', initParallax);
+    document.addEventListener('DOMContentLoaded', animateCounters);
 </script>
 
 </body>
